@@ -12,7 +12,7 @@
           "./*"
         ],
         "@firebase/*": [
-          "./app/src/firebase/*"
+          "./lib/*"
         ],
         "@components/*": [
           "./components/*"

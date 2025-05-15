@@ -1,6 +1,8 @@
 'use client';
 
-import { useState, useMemo } from 'react'; // Import useState and useMemo
+import { useState, useEffect, useMemo } from 'react'; // Import useState and useMemo
+import { useRouter } from 'next/navigation'; // Import useRouter
+import { useAuth } from '@/app/context/AuthContext'; // Import useAuth
 import CmdList from '@/components/CmdList';
 import SearchBar from '@/components/SearchBar';
 import TagFilter from '@/components/TagFilter';
@@ -11,6 +13,24 @@ import useCmds from '@/hooks/useCmds';
 export default function CmdsPage() {
   const { cmds, loading, error } = useCmds();
   const [selectedTag, setSelectedTag] = useState('All'); // State for the selected tag
+  const { user, loadingAuth } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loadingAuth && !user) {
+      router.push('/auth');
+    }
+  }, [user, loadingAuth, router]);
+
+  if (loadingAuth) {
+    return <p>Chargement...</p>; // Or a loading spinner
+  }
+
+  if (!user) {
+    // This will likely not be reached if the redirect happens,
+    // but it's good practice for clarity or if redirect is delayed.
+    return <p>Redirection vers la page de connexion...</p>;
+  }
 
   // Extract unique tags for the filter.
   const allTags = useMemo(() => {

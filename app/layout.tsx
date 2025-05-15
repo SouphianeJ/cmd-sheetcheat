@@ -1,7 +1,7 @@
 // filepath: c:\Users\s.jender\github public proj\cmd-shop\app\layout.tsx
 import type { Metadata } from 'next';
 import './globals.css'; // This import remains
-
+import { AuthProvider } from '@/app/context/AuthContext';
 export const metadata: Metadata = {
   title: 'Cmd Shop',
   description: 'A place to create and share cmds',
@@ -14,7 +14,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body> {/* Body tag gets styles from globals.css directly */}
+      <body> 
+      <AuthProvider>
         <div className="site-wrapper"> {/* Optional: for overall structure if needed */}
           <header className="site-header">
             <div className="container">
@@ -32,6 +33,7 @@ export default function RootLayout({
             <p>&copy; {new Date().getFullYear()} CmdShop. All rights reserved.</p>
           </footer>
         </div>
+        </AuthProvider>
       </body>
     </html>
   );
