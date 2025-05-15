@@ -1,0 +1,63 @@
+{
+    "compilerOptions": {
+      "target": "ES2018",
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "strict": true,
+      "jsx": "preserve",
+      "baseUrl": ".",
+      "paths": {
+        "@/*": [
+          "./*"
+        ],
+        "@firebase/*": [
+          "./app/src/firebase/*"
+        ],
+        "@components/*": [
+          "./components/*"
+        ],
+        "@ai/*": [
+          "./app/src/ai/*"
+        ],
+        "@github/*": [
+          "./app/src/github/*"
+        ],
+        "@hooks/*": [
+          "./hooks/*"
+        ],
+        "@api/*": [
+          "./app/api/*"
+        ],
+        "@types/*": [
+          "./types/*"
+        ]
+      },
+      "lib": [
+        "dom",
+        "dom.iterable",
+        "esnext"
+      ],
+      "allowJs": true,
+      "noEmit": true,
+      "incremental": true,
+      "module": "esnext",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "plugins": [
+        {
+          "name": "next"
+        }
+      ]
+    },
+    "include": [
+      "next-env.d.ts",
+      ".next/types/**/*.ts",
+      "**/*.ts",
+      "**/*.tsx"
+],
+    "exclude": [
+      "node_modules"
+    ]
+  }
+  
