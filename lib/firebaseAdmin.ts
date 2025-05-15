@@ -1,9 +1,9 @@
 // lib/firebaseAdmin.ts
 import admin from 'firebase-admin';
-import { Prompt } from '@/types/prompt'; // Assurez-vous que ce chemin est correct [source: prompt-shop.txt]
+import { Cmd } from '@/types/cmd'; // Assurez-vous que ce chemin est correct [source: cmd-shop.txt]
 
-// Interface pour les données de prompt stockées dans Firestore (peut inclure des timestamps)
-export interface PromptDocument extends Omit<Prompt, 'id'> {
+// Interface pour les données de cmd stockées dans Firestore (peut inclure des timestamps)
+export interface CmdDocument extends Omit<Cmd, 'id'> {
   createdAt?: admin.firestore.Timestamp;
   updatedAt?: admin.firestore.Timestamp;
 }
@@ -32,6 +32,6 @@ if (!admin.apps.length) {
 }
 
 const firestore = admin.firestore();
-const promptsCollection = firestore.collection('prompts');
+const cmdCollection = firestore.collection('cmd');
 
-export { firestore, promptsCollection, admin };
+export { firestore, cmdCollection, admin };

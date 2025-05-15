@@ -1,10 +1,10 @@
-// filepath: c:\Users\s.jender\github public proj\prompt-shop\app\layout.tsx
+// filepath: c:\Users\s.jender\github public proj\cmd-shop\app\layout.tsx
 import type { Metadata } from 'next';
 import './globals.css'; // This import remains
 
 export const metadata: Metadata = {
-  title: 'Prompt Shop',
-  description: 'A place to create and share prompts',
+  title: 'Cmd Shop',
+  description: 'A place to create and share cmds',
 };
 
 export default function RootLayout({
@@ -18,9 +18,9 @@ export default function RootLayout({
         <div className="site-wrapper"> {/* Optional: for overall structure if needed */}
           <header className="site-header">
             <div className="container">
-              <a href="/" className="logo">PromptShop</a>
+              <a href="/" className="logo">CmdShop</a>
               <nav>
-                <a href="/prompts">All Prompts</a>
+                <a href="/cmds">All Cmds</a>
                 {/* Add other nav links here */}
               </nav>
             </div>
@@ -29,7 +29,7 @@ export default function RootLayout({
             {children}
           </main>
           <footer className="site-footer">
-            <p>&copy; {new Date().getFullYear()} PromptShop. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} CmdShop. All rights reserved.</p>
           </footer>
         </div>
       </body>

@@ -1,34 +1,34 @@
 'use client';
 
 import { useState, useMemo } from 'react'; // Import useMemo
-import PromptList from '@/components/PromptList';
+import CmdList from '@/components/CmdList';
 import SearchBar from '@/components/SearchBar';
 import TagFilter from '@/components/TagFilter';
 import Link from 'next/link';
-import usePrompts from '@/hooks/usePrompts';
-import { Prompt } from '@/types/prompt'; // Import Prompt type
+import useCmds from '@/hooks/useCmds';
+import { Cmd } from '@/types/cmd'; // Import Cmd type
 
 export default function HomePage() {
-  const { prompts, loading, error } = usePrompts();
+  const { cmds, loading, error } = useCmds();
   const [selectedTag, setSelectedTag] = useState('All'); // State for the selected tag
 
   // Extract unique tags for the filter.
   const allTags = useMemo(() => {
-    return Array.from(new Set(prompts.flatMap(p => p.tags)));
-  }, [prompts]);
+    return Array.from(new Set(cmds.flatMap(p => p.tags)));
+  }, [cmds]);
 
   // Callback function for TagFilter
   const handleTagSelect = (tag: string) => {
     setSelectedTag(tag);
   };
 
-  // Filter prompts based on the selected tag
-  const filteredPrompts = useMemo(() => {
+  // Filter cmds based on the selected tag
+  const filteredCmds = useMemo(() => {
     if (selectedTag === 'All') {
-      return prompts;
+      return cmds;
     }
-    return prompts.filter(prompt => prompt.tags.includes(selectedTag));
-  }, [prompts, selectedTag]);
+    return cmds.filter(cmd => cmd.tags.includes(selectedTag));
+  }, [cmds, selectedTag]);
 
   return (
     <div className="space-y-6">
@@ -36,26 +36,26 @@ export default function HomePage() {
         <div className="w-full">
           <SearchBar /> {/* SearchBar logic will be separate for now */}
         </div>
-        <Link href="/prompts/new" className="button primary">
-          Add Prompt
+        <Link href="/cmds/new" className="button primary">
+          Add Cmd
         </Link>
       </div>
       
       <TagFilter tags={allTags} onTagSelect={handleTagSelect} />
       
-      {loading && <p className="text-center mt-4">Loading prompts...</p>}
+      {loading && <p className="text-center mt-4">Loading cmds...</p>}
       {error && <p className="text-center error-message mt-4">Error: {error}</p>}
       
-      {!loading && !error && <PromptList prompts={filteredPrompts} />}
+      {!loading && !error && <CmdList cmds={filteredCmds} />}
       
-      {!loading && !error && prompts.length > 0 && filteredPrompts.length === 0 && (
+      {!loading && !error && cmds.length > 0 && filteredCmds.length === 0 && (
         <p className="text-center mt-4">
-          No prompts found for the tag "{selectedTag}".
+          No cmds found for the tag "{selectedTag}".
         </p>
       )}
-      {!loading && !error && prompts.length === 0 && (
+      {!loading && !error && cmds.length === 0 && (
         <p className="text-center mt-4">
-          No prompts yet. Why not add one?
+          No cmds yet. Why not add one?
         </p>
       )}
     </div>

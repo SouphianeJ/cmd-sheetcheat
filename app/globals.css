@@ -6,8 +6,8 @@
   --color-text-primary: #e0e0e0;
   --color-text-secondary: #b0b0b0;
   --color-text-placeholder: #777777;
-  --color-neon-green: #39FF14;
-  --color-neon-blue: #4A90E2;
+  --color-neon-pink: #ff14ad;
+  --color-neon-blue: #4c4ae2;
   --color-white: #ffffff;
   --color-error-bg: #4d1212;
   --color-error-text: #ffbaba;
@@ -81,8 +81,8 @@ a {
 
 a:hover,
 a:focus {
-  color: var(--color-neon-green);
-  border-bottom-color: var(--color-neon-green);
+  color: var(--color-neon-pink);
+  border-bottom-color: var(--color-neon-pink);
 }
 
 /* Forms */
@@ -154,8 +154,8 @@ button.primary,
 }
 button.primary:hover,
 .button.primary:hover {
-  background-color: var(--color-neon-green);
-  border-color: var(--color-neon-green);
+  background-color: var(--color-neon-pink);
+  border-color: var(--color-neon-pink);
   color: var(--color-background-dark);
 }
 
@@ -185,7 +185,7 @@ label {
   display: block;
   margin-bottom: var(--spacing-unit);
   font-weight: 700;
-  color: var(--color-neon-green);
+  color: var(--color-neon-pink);
 }
 
 /* Layout - Simple Container */
@@ -214,7 +214,7 @@ header.site-header .container {
 header.site-header .logo {
   font-size: 1.8rem;
   font-weight: bold;
-  color: var(--color-neon-green);
+  color: var(--color-neon-pink);
   text-decoration: none;
 }
 
@@ -269,7 +269,7 @@ main {
 }
 
 .text-neon-green {
-  color: var(--color-neon-green);
+  color: var(--color-neon-pink);
 }
 
 .text-neon-blue {
@@ -318,7 +318,7 @@ main {
   display: inline-block;
   background-color: var(--color-surface-dark);
   border: 1px solid var(--color-border-dark);
-  color: var(--color-neon-green);
+  color: var(--color-neon-pink);
   padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
   border-radius: var(--border-radius-slight);
   font-size: 0.8rem;

@@ -14,7 +14,7 @@ const SearchBar: React.FC = () => {
     <div className="mb-4">
       <input
         type="text"
-        placeholder="Search prompts..."
+        placeholder="Search cmds..."
                 value={searchTerm}
         onChange={handleSearchChange}
       />

@@ -1,68 +1,68 @@
 // lib/firestoreService.ts
-import { promptsCollection, admin, PromptDocument } from './firebaseAdmin'; // Import depuis firebaseAdmin
-import { Prompt } from '@/types/prompt'; // [source: prompt-shop.txt]
+import { cmdCollection, admin, CmdDocument } from './firebaseAdmin'; // Import depuis firebaseAdmin
+import { Cmd } from '@/types/cmd'; // [source: cmd-shop.txt]
 import { v4 as uuidv4 } from 'uuid';
 
-const PROMPTS_COLLECTION_NAME = 'prompts'; // Défini ici pour être sûr
+const cmdS_COLLECTION_NAME = 'cmds'; // Défini ici pour être sûr
 
-export async function getAllPromptsFromFirestore(): Promise<Prompt[]> {
+export async function getAllCmdsFromFirestore(): Promise<Cmd[]> {
   try {
-    const snapshot = await promptsCollection.orderBy('title').get(); // Ou orderBy 'createdAt' si vous l'ajoutez
+    const snapshot = await cmdCollection.orderBy('title').get(); // Ou orderBy 'createdAt' si vous l'ajoutez
     if (snapshot.empty) {
       return [];
     }
     return snapshot.docs.map(doc => ({
       id: doc.id,
-      ...(doc.data() as Omit<Prompt, 'id'>), // Assurez-vous que les données correspondent
+      ...(doc.data() as Omit<Cmd, 'id'>), // Assurez-vous que les données correspondent
     }));
   } catch (error) {
-    console.error('Error fetching all prompts from Firestore:', error);
-    throw new Error('Failed to fetch prompts from Firestore.');
+    console.error('Error fetching all cmds from Firestore:', error);
+    throw new Error('Failed to fetch cmds from Firestore.');
   }
 }
 
-export async function getPromptByIdFromFirestore(id: string): Promise<Prompt | null> {
+export async function getCmdByIdFromFirestore(id: string): Promise<Cmd | null> {
   try {
-    const docRef = promptsCollection.doc(id);
+    const docRef = cmdCollection.doc(id);
     const docSnap = await docRef.get();
 
     if (!docSnap.exists) {
       return null;
     }
-    return { id: docSnap.id, ...(docSnap.data() as Omit<Prompt, 'id'>) };
+    return { id: docSnap.id, ...(docSnap.data() as Omit<Cmd, 'id'>) };
   } catch (error) {
-    console.error(`Error fetching prompt by ID ${id} from Firestore:`, error);
-    throw new Error('Failed to fetch prompt by ID from Firestore.');
+    console.error(`Error fetching cmd by ID ${id} from Firestore:`, error);
+    throw new Error('Failed to fetch cmd by ID from Firestore.');
   }
 }
 
-export async function addPromptToFirestore(promptData: Omit<Prompt, 'id'>): Promise<Prompt> {
+export async function addCmdToFirestore(cmdData: Omit<Cmd, 'id'>): Promise<Cmd> {
   try {
     const id = uuidv4(); // Générer un nouvel ID
-    const newPromptDocument: PromptDocument = {
-      ...promptData,
+    const newCmdDocument: CmdDocument = {
+      ...cmdData,
       createdAt: admin.firestore.FieldValue.serverTimestamp() as admin.firestore.Timestamp,
       updatedAt: admin.firestore.FieldValue.serverTimestamp() as admin.firestore.Timestamp,
     };
     // Utiliser l'ID généré comme ID de document
-    await promptsCollection.doc(id).set(newPromptDocument);
-    return { id, ...promptData }; // Retourner le prompt complet avec l'ID généré
+    await cmdCollection.doc(id).set(newCmdDocument);
+    return { id, ...cmdData }; // Retourner le cmd complet avec l'ID généré
   } catch (error) {
-    console.error('Error adding prompt to Firestore:', error);
-    throw new Error('Failed to add prompt to Firestore.');
+    console.error('Error adding cmd to Firestore:', error);
+    throw new Error('Failed to add cmd to Firestore.');
   }
 }
 
-export async function updatePromptInFirestore(id: string, updates: Partial<Omit<Prompt, 'id'>>): Promise<Prompt | null> {
+export async function updateCmdInFirestore(id: string, updates: Partial<Omit<Cmd, 'id'>>): Promise<Cmd | null> {
   try {
-    const docRef = promptsCollection.doc(id);
+    const docRef = cmdCollection.doc(id);
     const docSnap = await docRef.get();
 
     if (!docSnap.exists) {
-      return null; // Le prompt à mettre à jour n'existe pas
+      return null; // Le cmd à mettre à jour n'existe pas
     }
 
-    const updateData: Partial<PromptDocument> & { updatedAt: admin.firestore.Timestamp } = {
+    const updateData: Partial<CmdDocument> & { updatedAt: admin.firestore.Timestamp } = {
       ...updates,
       updatedAt: admin.firestore.FieldValue.serverTimestamp() as admin.firestore.Timestamp,
     };
@@ -74,17 +74,17 @@ export async function updatePromptInFirestore(id: string, updates: Partial<Omit<
     if (!updatedDocSnap.exists) { // Double vérification, ne devrait pas arriver
         return null;
     }
-    return { id: updatedDocSnap.id, ...(updatedDocSnap.data() as Omit<Prompt, 'id'>) };
+    return { id: updatedDocSnap.id, ...(updatedDocSnap.data() as Omit<Cmd, 'id'>) };
 
   } catch (error) {
-    console.error(`Error updating prompt ${id} in Firestore:`, error);
-    throw new Error('Failed to update prompt in Firestore.');
+    console.error(`Error updating cmd ${id} in Firestore:`, error);
+    throw new Error('Failed to update cmd in Firestore.');
   }
 }
 
-export async function deletePromptFromFirestore(id: string): Promise<boolean> {
+export async function deleteCmdFromFirestore(id: string): Promise<boolean> {
   try {
-    const docRef = promptsCollection.doc(id);
+    const docRef = cmdCollection.doc(id);
     const docSnap = await docRef.get();
 
     if (!docSnap.exists) {
@@ -93,7 +93,7 @@ export async function deletePromptFromFirestore(id: string): Promise<boolean> {
     await docRef.delete();
     return true;
   } catch (error) {
-    console.error(`Error deleting prompt ${id} from Firestore:`, error);
-    throw new Error('Failed to delete prompt from Firestore.');
+    console.error(`Error deleting cmd ${id} from Firestore:`, error);
+    throw new Error('Failed to delete cmd from Firestore.');
   }
 }
